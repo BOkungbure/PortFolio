@@ -1,2 +1,4 @@
 # PortFolio
-Repository of all personal projects I've worked on
+## This is a repository of personal SQL analysis I conduct for data exploration on opensource data sets
+
+
