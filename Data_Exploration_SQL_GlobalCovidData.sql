@@ -12,7 +12,7 @@ order by 3, 4,5,6;
 
 -- Total Cases vs Total Deaths
 -- % Of deaths in relation to the total of new cases at any given day
-select location, date, total_cases, total_deaths, (total_deaths*1.0/total_cases)*100 AS DeathRatio
+select location, date, total_cases, total_deaths, ROUND((total_deaths*1.0/total_cases)*100,1) AS DeathRatio
 from Portfolio..CovidDeaths
 where location = 'Canada'
 order by date;
