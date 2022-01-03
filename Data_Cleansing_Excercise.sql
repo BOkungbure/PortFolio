@@ -125,4 +125,14 @@ SELECT * FROM HousingData.dbo.HousingData;
 
 
 --- Another method I found courtesy of AlexTheAnalyst is using the PARSENAME function, which basically splits strings with the period delimiter
+--- Now, I'm going to split the address of OwnerAddress using PARSENAME, this only works in reverse
 
+SELECT
+PARSENAME(OwnerAddress, 1); --- The challenge of with running this line of code is the abesence of a period, the data in OwnerAddress is separated by ',', so we nest a replace function in PARSENAME
+
+SELECT
+PARSENAME(REPLACE(OwnerAddress, ',', '.'), 3) AS OwnerStreet, --- To extract the street address
+PARSENAME(REPLACE(OwnerAddress, ',', '.'), 2) AS OwnerCity, --- To extract the city address
+PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1) AS OwnerState --- To extract the state address
+
+FROM HousingData.dbo.HousingData;
