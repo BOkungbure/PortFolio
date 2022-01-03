@@ -136,3 +136,28 @@ PARSENAME(REPLACE(OwnerAddress, ',', '.'), 2) AS OwnerCity, --- To extract the c
 PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1) AS OwnerState --- To extract the state address
 
 FROM HousingData.dbo.HousingData;
+
+--- We then create columns for these new values
+
+--- Adding New columns
+ALTER TABLE HousingData.dbo.HousingData
+ADD OwnerStreet Nvarchar(255);
+
+ALTER TABLE HousingData.dbo.HousingData
+ADD OwnerState Nvarchar(255);
+
+ALTER TABLE HousingData.dbo.HousingData
+ADD OwnerCity Nvarchar(255);
+
+--- Updating the new columns
+UPDATE HousingData.dbo.HousingData
+SET OwnerStreet = PARSENAME(REPLACE(OwnerAddress, ',', '.'), 3);
+
+UPDATE HousingData.dbo.HousingData
+SET OwnerCity = PARSENAME(REPLACE(OwnerAddress, ',', '.'), 2);
+
+UPDATE HousingData.dbo.HousingData
+SET OwnerState = PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1);
+
+--- Previewing the new table
+SELECT * FROM HousingData.dbo.HousingData;
