@@ -122,3 +122,7 @@ SET PropertySplitCity = SUBSTRING(PropertyAddress, CHARINDEX(',',PropertyAddress
 
 --- New previewing the newly modified table
 SELECT * FROM HousingData.dbo.HousingData;
+
+
+--- Another method I found courtesy of AlexTheAnalyst is using the PARSENAME function, which basically splits strings with the period delimiter
+
