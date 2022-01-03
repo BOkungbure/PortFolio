@@ -73,3 +73,52 @@ JOIN HousingData.dbo.HousingData b
 	ON a.ParcelID = b.ParcelID
 	AND a.[UniqueID ] <> b.[UniqueID ]
 WHERE a.PropertyAddress IS NULL;
+
+
+--- Now that we have addresses for all teh entries, one of the things we may want to do is break down the address into cities and states
+
+SELECT PropertyAddress
+FROM HousingData.dbo.HousingData;
+
+--- We can split the data in the property address using the delimiter ',' since that's what separates the street address from the city
+--- To do that, we'd have to use the SUBSTRING function to isolate the ',' and and split the adress before and after the comma
+
+SELECT
+SUBSTRING(
+		PropertyAddress,
+		1,
+		CHARINDEX(',',PropertyAddress)-1
+		)
+AS Address,
+--- This 1st block of code will separate the street address, the next block will isolate the city
+SUBSTRING(
+		PropertyAddress,
+		CHARINDEX(',',PropertyAddress)+1,
+		LEN(PropertyAddress)
+		)
+AS CityAddress
+
+FROM HousingData.dbo.HousingData;
+
+--- After both blocks of code have been run together, You now have the street address and the city adress in their separate columns
+--- We still need to update these values as new columns in our table
+
+
+--- Creating and updating the 1st atble
+ALTER TABLE HousingData.dbo.HousingData
+ADD PropertyAddressSteet Nvarchar(255);
+
+UPDATE HousingData.dbo.HousingData
+SET PropertyAddressSteet = SUBSTRING(PropertyAddress, 1, CHARINDEX(',',PropertyAddress)-1);
+
+
+--- Creating and updating the 2nd atble
+ALTER TABLE HousingData.dbo.HousingData
+ADD PropertySplitCity Nvarchar(255);
+
+UPDATE HousingData.dbo.HousingData
+SET PropertySplitCity = SUBSTRING(PropertyAddress, CHARINDEX(',',PropertyAddress)+1, LEN(PropertyAddress));
+
+
+--- New previewing the newly modified table
+SELECT * FROM HousingData.dbo.HousingData;
