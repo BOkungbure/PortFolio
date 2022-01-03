@@ -174,3 +174,20 @@ CASE
 	WHEN SoldAsVacant = 'N' THEN 'No'
 	ELSE SoldAsVacant
 	END
+
+--- Another issue, withe the data is the duplicates, sorting the table you see that there are several entries with duplicate rows
+WITH RowMarkerCTE AS (
+SELECT * ,
+	ROW_NUMBER() OVER (
+	PARTITION BY ParcelID,
+				PropertyAddress,
+				SalePrice,
+				SaleDate,
+				LegalReference
+				ORDER BY UniqueID
+				) row_num
+
+FROM HousingData.dbo.HousingData)
+SELECT * FROM RowMarkerCTE
+WHERE row_num > 1;
+
