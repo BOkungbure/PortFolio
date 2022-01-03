@@ -92,7 +92,7 @@ CREATE TABLE canadacities (
   postal VARCHAR(4000),
   id VARCHAR(10)
 )
-SELECT RAND(salesdb..Customers)
+/***SELECT RAND(salesdb..Customers)***/
 
 SELECT * FROM canadacities;
 
