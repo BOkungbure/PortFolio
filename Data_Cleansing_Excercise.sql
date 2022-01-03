@@ -161,3 +161,16 @@ SET OwnerState = PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1);
 
 --- Previewing the new table
 SELECT * FROM HousingData.dbo.HousingData;
+
+--- Foing through this data, you realise that there are some errors SoldAsVacant column a mixture of "Y", "Yes", etc, so to correct this, I'll use a case statement
+SELECT DISTINCT(SoldAsVacant), COUNT(SoldAsVacant)
+FROM HousingData.dbo.HousingData
+GROUP BY SoldAsVacant;
+
+UPDATE HousingData.dbo.HousingData
+SET SoldAsVacant = 
+CASE
+	WHEN SoldAsVacant = 'Y' THEN 'Yes'
+	WHEN SoldAsVacant = 'N' THEN 'No'
+	ELSE SoldAsVacant
+	END
