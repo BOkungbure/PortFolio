@@ -190,4 +190,3 @@ SELECT * ,
 FROM HousingData.dbo.HousingData)
 SELECT * FROM RowMarkerCTE
 WHERE row_num > 1;
-
