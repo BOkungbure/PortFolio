@@ -99,3 +99,40 @@ JOIN sales_reps s
 ON a.sales_rep_id = s.id
 GROUP BY 1
 ORDER BY 3 DESC
+
+
+SELECT  sales_channel,
+        ROUND(AVG(event_count),2) avg_traffic
+FROM
+    (SELECT
+    DATE_TRUNC('day',occurred_at) event_day,
+    channel sales_channel,
+    COUNT(*) event_count
+    FROM web_events
+    GROUP BY 1,2
+    ) s1
+GROUP BY 1
+ORDER BY 2 DESC
+
+SELECT
+account_name,
+COUNT(order_id),
+CASE
+    WHEN total_amt > 5000 THEN 'Over $5,000'
+    WHEN total_amt < 5000 AND total_amt >= 4000 THEN '$4,000 - $5,000'
+    ELSE 'Less than $4,000'
+    END AS amt_group
+FROM
+    (
+    SELECT
+    o.id order_id,
+    a.name account_name,
+    o.occurred_at order_date,
+    SUM(o.total_amt_usd) total_amt
+    FROM orders o
+    JOIN accounts a
+    ON o.account_id = a.id
+    WHERE a.name IN ('Walmart','Apple')
+    GROUP BY 1,2,3
+    ) sub
+GROUP BY 1,3
