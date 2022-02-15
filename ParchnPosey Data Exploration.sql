@@ -116,6 +116,7 @@ ORDER BY 2 DESC
 
 SELECT
 account_name,
+SUM(total_amt),
 COUNT(order_id),
 CASE
     WHEN total_amt > 5000 THEN 'Over $5,000'
@@ -135,4 +136,6 @@ FROM
     WHERE a.name IN ('Walmart','Apple')
     GROUP BY 1,2,3
     ) sub
-GROUP BY 1,3
+GROUP BY 1,4
+
+
