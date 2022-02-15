@@ -155,22 +155,38 @@ WHERE DATE_TRUNC('month',occurred_at) =
 
 
 
+
+
 SELECT
-rep_name,
-region_name,
-MAX(total_amt)
+sub3.rep_name, sub3.region_name, sub3.total_amt
 FROM
     (SELECT
-    s.name rep_name,
-    r.name region_name,
-    SUM(total_amt_usd) total_amt
-    FROM orders o
-    JOIN accounts a
-    ON o.account_id = a.id
-    JOIN sales_reps s
-    ON a.sales_rep_id = s.id
-    JOIN region r
-    ON s.region_id = r.id
-    GROUP BY 1,2) sub
-GROUP BY 1,2
-ORDER BY 2,3 DESC
+    region_name,
+    MAX(total_amt) total_amt
+    FROM
+        (SELECT
+        s.name rep_name,
+        r.name region_name,
+        SUM(total_amt_usd) total_amt
+        FROM orders o
+        JOIN accounts a
+        ON o.account_id = a.id
+        JOIN sales_reps s
+        ON a.sales_rep_id = s.id
+        JOIN region r
+        ON s.region_id = r.id
+        GROUP BY 1,2) sub1
+    GROUP BY 1) sub2
+JOIN (SELECT
+        s.name rep_name,
+        r.name region_name,
+        SUM(total_amt_usd) total_amt
+        FROM orders o
+        JOIN accounts a
+        ON o.account_id = a.id
+        JOIN sales_reps s
+        ON a.sales_rep_id = s.id
+        JOIN region r
+        ON s.region_id = r.id
+        GROUP BY 1,2) sub3
+ON sub3.region_name = sub2.region_name AND sub3.total_amt = sub2.total_amt
