@@ -177,7 +177,7 @@ FROM
         ON s.region_id = r.id
         GROUP BY 1,2) sub1
     GROUP BY 1) sub2
-JOIN (SELECT
+JOIN (  SELECT
         s.name rep_name,
         r.name region_name,
         SUM(total_amt_usd) total_amt
@@ -190,3 +190,28 @@ JOIN (SELECT
         ON s.region_id = r.id
         GROUP BY 1,2) sub3
 ON sub3.region_name = sub2.region_name AND sub3.total_amt = sub2.total_amt
+
+SELECT 
+r.name region_name,
+COUNT(*) order_count
+FROM orders o
+JOIN accounts a
+ON o.account_id = a.id
+JOIN sales_reps s
+ON a.sales_rep_id = s.id
+JOIN region r
+ON s.region_id = r.id
+HAVING SUM(o.total_amt_usd) =
+    (SELECT MAX(total_amt)
+    FROM    (SELECT
+            r.name region_name,
+            SUM(total_amt_usd) total_amt
+            FROM orders o
+            JOIN accounts a
+            ON o.account_id = a.id
+            JOIN sales_reps s
+            ON a.sales_rep_id = s.id
+            JOIN region r
+            ON s.region_id = r.id
+            GROUP BY 1) sub1)
+GROUP BY 1
