@@ -139,3 +139,15 @@ FROM
 GROUP BY 1,4
 
 
+SELECT
+AVG(standard_qty) standard_avg,
+AVG(gloss_qty) gloss_avg,
+AVG(poster_qty) poster_avg,
+SUM(total_amt_usd)
+FROM orders
+WHERE DATE_TRUNC('month',occurred_at) =
+    (
+    SELECT
+    DATE_TRUNC('month',MIN(occurred_at))
+    FROM orders
+    )
