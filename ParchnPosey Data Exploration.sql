@@ -151,3 +151,26 @@ WHERE DATE_TRUNC('month',occurred_at) =
     DATE_TRUNC('month',MIN(occurred_at))
     FROM orders
     )
+
+
+
+
+SELECT
+rep_name,
+region_name,
+MAX(total_amt)
+FROM
+    (SELECT
+    s.name rep_name,
+    r.name region_name,
+    SUM(total_amt_usd) total_amt
+    FROM orders o
+    JOIN accounts a
+    ON o.account_id = a.id
+    JOIN sales_reps s
+    ON a.sales_rep_id = s.id
+    JOIN region r
+    ON s.region_id = r.id
+    GROUP BY 1,2) sub
+GROUP BY 1,2
+ORDER BY 2,3 DESC
