@@ -286,3 +286,14 @@ ROUND(COUNT(name)/351,3) ratio
 FROM accounts
 GROUP BY 1
 ORDER BY 2 DESC
+
+SELECT
+CASE
+    WHEN LOWER(LEFT(name,1)) IN ('a','e','i','o','u') THEN 'Vowel'
+    ELSE 'Others'
+    END AS name_group,
+COUNT(name) name_count,
+ROUND(COUNT(name)/351,3) ratio
+FROM accounts
+GROUP BY 1
+ORDER BY 2 DESC
