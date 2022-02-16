@@ -262,3 +262,27 @@ t2.total_amt
 FROM t1
 JOIN t2
 ON t2.region_name = t1.region_name AND t1.total_amt = t2.total_amt
+
+
+/***Practtising Data Cleaning***/
+
+SELECT * FROM accounts
+
+SELECT
+RIGHT(name,1) site_extension,
+COUNT(RIGHT(name,1)) extension_count,
+PG_TYPEOF(RIGHT(name,1)) type_test
+FROM accounts
+GROUP BY 1
+ORDER BY 1
+
+SELECT
+CASE
+    WHEN LEFT(name,1) IN ('0','1','2','3','4','5','6','7','8','9') THEN 'Numeric'
+    ELSE 'Alphabetic'
+    END AS name_group,
+COUNT(name) name_count,
+ROUND(COUNT(name)/351,3) ratio
+FROM accounts
+GROUP BY 1
+ORDER BY 2 DESC
