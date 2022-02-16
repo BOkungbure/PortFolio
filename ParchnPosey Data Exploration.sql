@@ -252,13 +252,13 @@ t2 AS (
     region_name,
     MAX(total_amt) total_amt
     FROM t1
+    GROUP BY 1
 )
 
 SELECT
 t1.rep_name,
 t1.region_name,
 t2.total_amt
-FROM t1 t
-JOIN t2 tt
+FROM t1
+JOIN t2
 ON t2.region_name = t1.region_name AND t1.total_amt = t2.total_amt
-GROUP BY 2
