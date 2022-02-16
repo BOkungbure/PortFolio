@@ -48,6 +48,7 @@ FROM t1
 HAVING MAX(t1.gloss_total) AND t1.account_name = 'Walmart'
 
 
+/***Aggregate Functions & CASE statements***/
 
 SELECT
 o.id Order_id,
@@ -66,22 +67,7 @@ WHERE a.name IN ('Walmart','Apple','Verizon')
 GROUP BY 2,1,3,4
 ORDER BY 1
 
-/***
-We would like to identify top performing sales reps,
-which are sales reps associated with more than 200 orders.
-Create a table with the sales rep name, the total number of orders,
-and a column with top or not depending on if they have more than 200 orders.
-Place the top sales people first in your final table.
-
-The previous didn't account for the middle,
-nor the dollar amount associated with the sales. 
-Management decides they want to see these characteristics represented as well.
-We would like to identify top performing sales reps,
-which are sales reps associated with more than 200 orders or more than 750000 in total sales.
-The middle group has any rep with more than 150 orders or 500000 in sales. Create a table with the sales rep name,
-the total number of orders, total sales across all orders, and a column with top, middle, or low depending on this criteria.
-Place the top sales people based on dollar amount of sales first in your final table.
-You might see a few upset sales people by this criteria!***/
+/***Aggregate Functions & CASE statements***/
 
 SELECT
 s.name Rep_Name,
@@ -156,7 +142,7 @@ WHERE DATE_TRUNC('month',occurred_at) =
 
 
 
-
+/***Practising Subqueries***/
 SELECT
 sub3.rep_name, sub3.region_name, sub3.total_amt
 FROM
@@ -191,6 +177,8 @@ JOIN (  SELECT
         GROUP BY 1,2) sub3
 ON sub3.region_name = sub2.region_name AND sub3.total_amt = sub2.total_amt
 
+
+/***Practising Subqueries***/
 SELECT 
 r.name region_name,
 COUNT(*) order_count
@@ -217,7 +205,7 @@ HAVING SUM(o.total_amt_usd) =
 GROUP BY 1
 
 
-
+/***Practising Subqueries***/
 SELECT
 o.account_id account_no,
 a.name account_name,
@@ -243,7 +231,7 @@ HAVING SUM(o.total) > total_std
 )
 GROUP BY 1,2
 
-
+/***Practising CTEs***/
 WITH t1 AS (
     SELECT
     s.name rep_name,
