@@ -418,3 +418,31 @@ SELECT occurred_at,
   FROM orders 
  GROUP BY 1
  ) sub
+
+
+
+SELECT
+account_id,
+occurred_at,
+standard_qty,
+NTILE(4) OVER (PARTITION BY account_id ORDER BY standard_qty) percentile
+FROM orders
+ORDER BY 1 DESC
+
+
+SELECT
+account_id,
+occurred_at,
+gloss_qty,
+NTILE(2) OVER (PARTITION BY account_id ORDER BY gloss_qty) percentile
+FROM orders
+ORDER BY 1 DESC
+
+
+SELECT
+account_id,
+occurred_at,
+total_amt_usd,
+NTILE(100) OVER (PARTITION BY account_id ORDER BY total_amt_usd) percentile
+FROM orders
+ORDER BY 1 DESC
