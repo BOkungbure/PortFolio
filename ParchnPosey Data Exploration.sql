@@ -303,3 +303,21 @@ primary_poc full_name,
 LEFT(primary_poc,STRPOS(primary_poc,' ')-1) first_name,
 RIGHT(primary_poc,LENGTH(primary_poc)-POSITION(' ' IN primary_poc)) last_name
 FROM accounts
+
+SELECT
+name full_name,
+LEFT(name,STRPOS(name,' ')-1) first_name,
+RIGHT(name,LENGTH(name)-POSITION(' ' IN name)) last_name
+FROM sales_reps
+
+
+
+WITH t1 AS (SELECT
+            primary_poc full_name,
+            LEFT(primary_poc,STRPOS(primary_poc,' ')-1) first_name,
+            RIGHT(primary_poc,LENGTH(primary_poc)-POSITION(' ' IN primary_poc)) last_name,
+            REPLACE(name,' ','') company_name
+            FROM accounts)
+SELECT
+LOWER(CONCAT(first_name,'.',last_name,'@',company_name,'.com'))
+FROM t1
