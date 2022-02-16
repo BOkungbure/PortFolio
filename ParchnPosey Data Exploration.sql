@@ -297,3 +297,9 @@ ROUND(COUNT(name)/351,3) ratio
 FROM accounts
 GROUP BY 1
 ORDER BY 2 DESC
+
+SELECT
+primary_poc full_name,
+LEFT(primary_poc,STRPOS(primary_poc,' ')-1) first_name,
+RIGHT(primary_poc,LENGTH(primary_poc)-POSITION(' ' IN primary_poc)) last_name
+FROM accounts
