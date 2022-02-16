@@ -215,3 +215,30 @@ HAVING SUM(o.total_amt_usd) =
             ON s.region_id = r.id
             GROUP BY 1) sub1)
 GROUP BY 1
+
+
+
+SELECT
+o.account_id account_no,
+a.name account_name,
+SUM(o.total) total_orders
+FROM orders o
+JOIN accounts a
+ON o.account_id = a.id
+HAVING SUM(o.total) > total_std
+    (SELECT
+    total_std
+    FROM
+    (   SELECT
+        o.account_id account_no,
+        a.name account_name,
+        SUM(standard_qty) total_std
+        FROM orders o
+        JOIN accounts a
+        ON o.account_id = a.id
+        GROUP BY 1,2
+        ORDER BY 3 DESC
+        LIMIT 1
+    ) sub
+)
+GROUP BY 1,2
