@@ -242,3 +242,35 @@ HAVING SUM(o.total) > total_std
     ) sub
 )
 GROUP BY 1,2
+
+
+WITH t1 AS (
+    SELECT
+    s.name rep_name,
+    r.name region_name,
+    SUM(total_amt_usd) total_amt
+    FROM orders o
+    JOIN accounts a
+    ON o.account_id = a.id
+    JOIN sales_reps s
+    ON a.sales_rep_id = s.id
+    JOIN region r
+    ON s.region_id = r.id
+    GROUP BY 1,2
+),
+
+t2 AS (
+    SELECT
+    region_name,
+    MAX(total_amt) total_amt
+    FROM t1
+)
+
+SELECT
+t1.rep_name,
+t1.region_name,
+t2.total_amt
+FROM t1 t
+JOIN t2 tt
+ON t2.region_name = t1.region_name AND t1.total_amt = t2.total_amt
+GROUP BY 2
