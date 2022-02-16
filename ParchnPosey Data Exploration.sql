@@ -321,3 +321,25 @@ WITH t1 AS (SELECT
 SELECT
 LOWER(CONCAT(first_name,'.',last_name,'@',company_name,'.com'))
 FROM t1
+
+WITH t1 AS (SELECT
+            primary_poc full_name,
+            LEFT(primary_poc,STRPOS(primary_poc,' ')-1) first_name,
+            RIGHT(primary_poc,LENGTH(primary_poc)-POSITION(' ' IN primary_poc)) last_name,
+            REPLACE(name,' ','') company_name
+            FROM accounts)
+SELECT
+first_name,
+last_name,
+LOWER(CONCAT(first_name,'.',last_name,'@',company_name,'.com')),
+CONCAT(
+    LOWER(LEFT(first_name,1)),
+    LOWER(RIGHT(first_name,1)),
+    LOWER(LEFT(last_name,1)),
+    LOWER(RIGHT(last_name,1)),
+    LENGTH(first_name),
+    LENGTH(last_name),
+    UPPER(company_name)
+)
+FROM t1
+
