@@ -2,7 +2,7 @@ new_message = print((17*6) - (9*7)+(5*7))
 X = 2
 Y = X
 print(Y)
-age,sex,race = 30,'Male','Black'
+age,sex,race = 30,'Male','Black' # You can do mass variable declarations this way
 print(age,sex,race)
 
 age+=1
@@ -32,3 +32,14 @@ reservoir_volume -= 2.5e5
 
 # print the new value of the reservoir_volume variable
 print(reservoir_volume)
+
+
+carrots = 24
+rabbits = 8
+crs_per_rab = carrots/rabbits
+rabbits = 12
+print(crs_per_rab)# In python, unless you've declared changes to a variable before running an operation, the value in the variable sa
+# stays same, when declared after an operation.
+
+print(type(rabbits))# This gets the type of the variable
+
