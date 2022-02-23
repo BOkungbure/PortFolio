@@ -1,3 +1,4 @@
+from optparse import Values
 from turtle import right
 
 
@@ -65,3 +66,25 @@ cast = {
 
 for key, value in cast.items():
     print('{}:  {}'.format(key, value))
+
+
+# You would like to count the number of fruits in your basket. 
+# In order to do this, you have the following dictionary and list of
+# fruits.  Use the dictionary and list to count the total number
+# of fruits, but you do not want to count the other items in your basket.
+
+result = 0
+basket_items = {'apples': 4, 'oranges': 19, 'kites': 3, 'sandwiches': 8}
+fruits = ['apples', 'oranges', 'pears', 'peaches', 'grapes', 'bananas']
+
+#Iterate through the dictionary
+for fruit in fruits:
+#if the key is in the list of fruits, add the value (number of fruits) to result
+    if fruit in basket_items.items():
+        basket_items[fruit] += 1
+    else:
+        basket_items[fruit] += 0
+
+
+
+print(basket_items)
