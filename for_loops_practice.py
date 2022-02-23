@@ -54,3 +54,14 @@ for word in book_title:
         word_counter[word] = 1
 
 print(word_counter)
+
+
+cast = {
+           "Jerry Seinfeld": "Jerry Seinfeld",
+           "Julia Louis-Dreyfus": "Elaine Benes",
+           "Jason Alexander": "George Costanza",
+           "Michael Richards": "Cosmo Kramer"
+       }
+
+for key, value in cast.items():
+    print('{}:  {}'.format(key, value))
