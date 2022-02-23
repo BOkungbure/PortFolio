@@ -74,17 +74,29 @@ for key, value in cast.items():
 # of fruits, but you do not want to count the other items in your basket.
 
 result = 0
+basket_items = {'lettuce': 2, 'kites': 3, 'sandwiches': 8, 'pears': 4, 'bears': 10}
+fruits = ['apples', 'oranges', 'pears', 'peaches', 'grapes', 'bananas']
+
+#Iterate through the dictionary
+for fruit,quantity in basket_items.items():
+#if the key is in the list of fruits, add the value (number of fruits) to result
+    if fruit in fruits:
+        result += quantity
+
+print('There are {} fruits in the basket'.format(result))
+
+
+fruit_count, not_fruit_count = 0, 0
 basket_items = {'apples': 4, 'oranges': 19, 'kites': 3, 'sandwiches': 8}
 fruits = ['apples', 'oranges', 'pears', 'peaches', 'grapes', 'bananas']
 
 #Iterate through the dictionary
-for fruit in fruits:
-#if the key is in the list of fruits, add the value (number of fruits) to result
-    if fruit in basket_items.items():
-        basket_items[fruit] += 1
-    else:
-        basket_items[fruit] += 0
+for thing,quantity in basket_items.items():
+#if the key is in the list of fruits, add to fruit_count.
+    if thing in fruits:
+        fruit_count += quantity
+#if the key is not in the list, then add to the not_fruit_count
+    elif thing not in fruits:
+        not_fruit_count += quantity
 
-
-
-print(basket_items)
+print(fruit_count, not_fruit_count)
