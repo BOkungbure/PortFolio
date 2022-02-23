@@ -9,6 +9,10 @@ for i in range(5,31,5):
 names = ["Joey Tribbiani", "Monica Geller", "Chandler Bing", "Phoebe Buffay"]
 user_names = []
 
+for i in range(len(names)):
+    name[i] = name.lower()
+    print(names)
+
 for name in names:
     user_names.append(name.lower().replace(' ','_'))
     print(user_names)
