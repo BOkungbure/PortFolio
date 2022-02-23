@@ -42,11 +42,15 @@ for i in items:
 print(html_str)
 
 book_title =  ['great', 'expectations','the', 'adventures', 'of', 'sherlock','holmes','the','great','gasby','hamlet','adventures','of','huckleberry','fin']
-
 word_counter = {}
-for i in book_title:
-    if i not in book_title:
-        word_counter[i] = 1
+
+for word in book_title:
+    word_counter[word] = word_counter.get(word, 0) + 1
+
+for word in book_title:
+    if word in word_counter:
+        word_counter[word] += 1
     else:
-        word_counter[i] += 1
+        word_counter[word] = 1
+
 print(word_counter)
