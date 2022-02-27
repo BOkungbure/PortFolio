@@ -100,3 +100,75 @@ for thing,quantity in basket_items.items():
         not_fruit_count += quantity
 
 print(fruit_count, not_fruit_count)
+
+
+start_num = 27#provide some start number
+end_num = 98#provide some end number that you stop when you hit
+count_by = 3#provide some number to count by 
+break_num = start_num
+while start_num < end_num:
+    break_num += count_by
+
+print(break_num)
+
+num_list = [422, 136, 524, 85, 96, 719, 85, 92, 10, 17, 312, 542, 87, 23, 86, 191, 116, 35, 173, 45, 149, 59, 84, 69, 113, 166]
+
+# You need to write a loop that takes the numbers in a given list named
+
+# # Your code should add up the odd numbers in the list, but only up to the first 5 odd numbers together. If there are more than 5 odd numbers, you should stop at the fifth. If there are fewer than 5 odd numbers, add all of the odd numbers.
+count_odd = 0 #Need to define a variable that keeps tarck of the count of odd numbers
+list_sum = 0 #Another variable that keeps track of the sum of items in the list
+i = 0 # Define the iterable i
+len_num_list = len(num_list) # the number of items in the list
+
+# While condition checks to see if odd number count is up to 5 or not & i is less then the number of items in the list
+while (count_odd < 5) and (i < len_num_list):
+    if num_list[i] % 2 != 0:# if statement checking if i is even or odd
+        list_sum += num_list[i]#adding the iterable i to itself to update the sum of items in the list
+        count_odd += 1# updating the coung of odd numbers
+    i += 1
+print ("The numbers of odd numbers added are: {}".format(count_odd))
+print ("The sum of the odd numbers added is: {}".format(list_sum))
+
+
+
+# break and contiue in flow control
+manifest = [("bananas", 15), ("mattresses", 24), ("dog kennels", 42), ("machine", 120), ("cheeses", 5)]
+
+# the code breaks the loop when weight exceeds or reaches the limit
+print("METHOD 1")
+weight = 0
+items = []
+for cargo_name, cargo_weight in manifest:
+    print("current weight: {}".format(weight))
+    if weight >= 100:
+        print("  breaking loop now!")
+        break
+    else:
+        print("  adding {} ({})".format(cargo_name, cargo_weight))
+        items.append(cargo_name)
+        weight += cargo_weight
+
+print("\nFinal Weight: {}".format(weight))
+print("Final Items: {}".format(items))
+
+# skips an iteration when adding an item would exceed the limit
+# breaks the loop if weight is exactly the value of the limit
+print("\nMETHOD 2")
+weight = 0
+items = []
+for cargo_name, cargo_weight in manifest:
+    print("current weight: {}".format(weight))
+    if weight >= 100:
+        print("  breaking from the loop now!")
+        break
+    elif weight + cargo_weight > 100:
+        print("  skipping {} ({})".format(cargo_name, cargo_weight))
+        continue
+    else:
+        print("  adding {} ({})".format(cargo_name, cargo_weight))
+        items.append(cargo_name)
+        weight += cargo_weight
+
+print("\nFinal Weight: {}".format(weight))
+print("Final Items: {}".format(items))
